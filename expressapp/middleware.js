@@ -7,9 +7,9 @@ app.use(function (request, response, next) {
   next();
 });
 
-app.use(function (request, response, next) {
-  console.log("Middleware 2");
-  next();
+app.use("/about", function (request, response, next) {
+  console.log("About Middleware");
+  response.send("About Middleware");
 });
 
 app.get("/", function (request, response) {
