@@ -26,4 +26,13 @@ app.use("/names", function (request, response) {
   response.send(responseText);
 });
 
+app.use("/complex-objects", function (request, response) {
+  console.log(request.query);
+
+  const id = request.query.user.id;
+  const name = request.query.user.name;
+
+  response.send("<h3>id:" + id + "<br>name: " + name + "</h3>");
+});
+
 app.listen(3000);
