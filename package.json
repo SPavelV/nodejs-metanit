@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Learning NodeJS with [metanit](https://metanit.com/web/nodejs/).",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.19.0"
+  },
   "devDependencies": {
     "express": "^4.17.1"
   },
