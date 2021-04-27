@@ -6,7 +6,8 @@ app.set("view engine", "hbs");
 app.use("/contact", function (request, response) {
   response.render("contact.hbs", {
     title: "Мои контакты",
-    email: "gavaga@mycorp.com",
+    emailsVisible: true,
+    emails: ["gavaga@mycorp.com", "mioaw@mycorp.com"],
     phone: "+1234567890",
   });
 });
