@@ -4,7 +4,11 @@ const app = express();
 app.set("view engine", "hbs");
 
 app.use("/contact", function (request, response) {
-  response.render("contact.hbs");
+  response.render("contact.hbs", {
+    title: "Мои контакты",
+    email: "gavaga@mycorp.com",
+    phone: "+1234567890",
+  });
 });
 
 app.use("/", function (request, response) {
