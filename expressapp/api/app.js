@@ -52,4 +52,23 @@ app.post("/api/users", jsonParser, function (req, res) {
   res.send(user);
 });
 
+// удаление пользователя по id
+app.delete("/api/users/:id", function (req, res) {
+  const id = req.params.id;
+  let data = fs.readFileSync(filePath, "utf8");
+  let users = JSON.parse(data);
+  let index = -1;
 
+  index = users.findIndex((user) => user.id === id);
+
+  if (index > -1) {
+    {
+      // удаляем пользователя из массива по индексу
+      const user = users.splice(index, 1)[0];
+      data = JSON.stringify(users);
+      fs.writeFileSync("users.json", data);
+      // отправляем уаделенного пользователя
+      res.send(user);
+    }
+  }
+});
