@@ -4,13 +4,13 @@ const fs = require("fs");
 const app = express();
 const jsonParser = express.json();
 
-app.use(express.static(__dirname, "/public"));
+app.use(express.static(__dirname + "/public"));
 
 const filePath = "users.json";
 app.get("/api/users", function (request, response) {
-  const content = fs.readFile(filePath, "utf8");
+  const content = fs.readFileSync(filePath, "utf8");
   const users = JSON.parse(content);
-  res.send(users);
+  response.send(users);
 });
 
 app.get("/api/users/:id", function (request, response) {
@@ -71,4 +71,30 @@ app.delete("/api/users/:id", function (req, res) {
       res.send(user);
     }
   }
+});
+
+// изменение пользователя
+app.put("/api/users", jsonParser, function (req, res) {
+  if (req.body) return res.sendStatus(400);
+
+  const userId = req.body.id;
+  const userName = req.body.name;
+  const userAge = req.body.age;
+
+  let data = fs.readFileSync(filePath, "utf8");
+  const users = JSON.parse(data);
+  const userIndex = users.findIndex((user) => user.id === userId);
+  if (userIndex > -1) {
+    const user = users[userIndex];
+    user.age = userAge;
+    user.name = userName;
+    users[userIndex] = user;
+    data = JSON.stringify(users);
+    fs.writeFileSync("users.json", data);
+    res.send(user);
+  }
+});
+
+app.listen(3000, function () {
+  console.log("Сервер ожидает подключения...");
 });
