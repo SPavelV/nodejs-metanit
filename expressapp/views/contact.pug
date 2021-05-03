@@ -1,21 +1,17 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible" content="IE=edge")
-        meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        title #{title}
-    body 
-        h1 #{title}
+extends ./layouts/layout.pug
 
-        if emailsVisible 
-            h3 Электронные адреса
+block title
+    title #{title}
 
-            ul
-                each email in emails 
-                    li #{emails}
-        else
-            h3 Электронный адрес отстутствует
-        p Телефон: #{phone}
+block content 
+    h1 #{title}
 
-        include ./partials/footer.pug
+    if emailsVisible 
+        h3 Электронные адреса
+
+        ul
+            each email in emails 
+                li #{emails}
+    else
+        h3 Электронный адрес отстутствует
+    p Телефон: #{phone}
