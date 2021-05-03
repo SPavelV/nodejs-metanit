@@ -5,15 +5,24 @@ exports.addUser = function (req, res) {
 };
 
 exports.getUsers = function (req, res) {
-  res.render("users.hbs", {
-    users: User.getAll(),
+  User.find({}, function (err, allUsers) {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(404);
+    }
+    res.render("users.hbs", {
+      users: allUsers,
+    });
   });
 };
 
 exports.postUser = function (req, res) {
-  const username = req.body.name;
-  const userage = req.body.age;
-  const user = new User(username, userage);
-  user.save();
-  res.redirect("/users");
+  if (!req.body) return res.sendStatus(400);
+  const userName = req.body.name;
+  const userAge = req.body.age;
+  const user = new User({ name: userName, age: userAge });
+  user.save(function (err) {
+    if (err) return console.log(err);
+    res.redirect("/users");
+  });
 };
